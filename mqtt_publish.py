@@ -44,7 +44,6 @@ client.connect(x_broquer, port=1883, keepalive=60)
 client.loop_start()
 
 while True:
-
     mensagem = random.randint(20, 50) 
     client.publish(x_topic, 
                    payload=mensagem, 

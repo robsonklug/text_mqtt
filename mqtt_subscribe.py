@@ -6,9 +6,9 @@ import paho.mqtt.client as mqtt
 #Usando o servidor test.mosquito.org
 #A classe (da biblioteca PAHO) fornece todas as funções necessárias para se conectar a 
 # um broker MQTT, publicar mensagens, assinar tópicos e receber mensagens.
-x_broker = "test.mosquitto.org"
-x_topic = "$KLUG"
+x_broquer  = "test.mosquitto.org"
 x_clientID = ""
+x_topic    = "$KLUG"
 
 ## realizando a conexão e recebendo o retorno do status da conexão rc.
 ## rc (código de retorno), é usado para verificar se a conexão foi estabelecida que são:
@@ -44,5 +44,5 @@ obj_client.connect(x_broker, port=1883, keepalive=60)
 
 obj_client.loop_forever()
 
-## Para funcionar o Publush e o Subscribe, é necessário abrir duas instancias rodando ao mesmo tempo. 
-## Ao passo que a informações (neste caso o número aleatório) são atualizadas, o Subscribe recebe esta informação
+## Para funcionar o Publish e o Subscribe, é necessário abrir duas instancias rodando ao mesmo tempo. 
+## Ao passo que a informações (neste caso exemplo o número aleatório) são atualizadas, o Subscribe recebe esta informação
