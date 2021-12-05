@@ -3,34 +3,43 @@
 
 import paho.mqtt.client as mqtt
 
-THE_BROKER = "test.mosquitto.org"
-THE_TOPIC = "$SYS/#"
-CLIENT_ID = ""
+#Usando o servidor test.mosquito.org
+#A classe (da biblioteca PAHO) fornece todas as funções necessárias para se conectar a 
+# um broker MQTT, publicar mensagens, assinar tópicos e receber mensagens.
+x_broker = "test.mosquitto.org"
+x_topic = "KLUG/Temperatura"
+x_clientID = "klug"
 
-# The callback for when the client receives a CONNACK 
-# response from the server.
+## realizando a conexão e recebendo o retorno do status da conexão rc.
+## rc (código de retorno), é usado para verificar se a conexão foi estabelecida que são:
+## 0: Conexão bem-sucedida
+## 1: Conexão recusada - versão de protocolo incorreta
+## 2: Conexão recusada - identificador de cliente inválido
+## 3: Conexão recusada - servidor indisponível
+## 4: Conexão recusada - nome de usuário ou senha incorretos
+## 5: Conexão recusada - não autorizada
 def on_connect(client, userdata, flags, rc):
-    print("Connected to ", client._host, "port: ", client._port)
-    print("Flags: ", flags, "returned code: ", rc)
+    if (rc == 0):
+        print("Conexão OK. Retorno: ", client._host, " Porta: ", client._port)
+    else:
+        print("Conexão Falha. Retorno:  ", client._host, "port: ", client._port,"Flags: ", flags )
 
-    client.subscribe(THE_TOPIC, qos=0)
+    client.subscribe(x_topic, qos=0)
 
-# The callback for when a message is received from the server.
 def on_message(client, userdata, msg):
     print("sisub: msg received with topic: {} and payload: {}".format(msg.topic, str(msg.payload)))
 
-client = mqtt.Client(client_id=CLIENT_ID, 
+# criando o objeto client esta classe usa 4 parametros opcionais
+obj_client = mqtt.Client(client_id=x_clientID, 
                      clean_session=True, 
                      userdata=None, 
                      protocol=mqtt.MQTTv311, 
                      transport="tcp")
 
-client.on_connect = on_connect
-client.on_message = on_message
+obj_client.on_connect = on_connect
+obj_client.on_message = on_message
 
-client.username_pw_set(None, password=None)
-client.connect(THE_BROKER, port=1883, keepalive=60)
+obj_client.username_pw_set(None, password=None)
+obj_client.connect(x_broker, port=1883, keepalive=60)
 
-# Blocking call that processes network traffic, dispatches callbacks and
-# handles reconnecting.
-client.loop_forever()
+obj_client.loop_forever()

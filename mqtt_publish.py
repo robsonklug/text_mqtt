@@ -3,17 +3,26 @@ import time
 
 import paho.mqtt.client as mqtt
 
-THE_BROKER = "test.mosquitto.org"
-THE_TOPIC = "PMtest/rndvalue"
+x_broquer = "test.mosquitto.org"
+x_topic = "KLUG/Temperatura"
+#x_topic = "PMtest/rndvalue"
 CLIENT_ID = ""
-
-# The callback for when the client receives a CONNACK 
-# response from the server.
+ 
+## realizando a conexão e recebendo o retorno do status da conexão rc.
+## rc (código de retorno), é usado para verificar se a conexão foi estabelecida que são:
+## 0: Conexão bem-sucedida
+## 1: Conexão recusada - versão de protocolo incorreta
+## 2: Conexão recusada - identificador de cliente inválido
+## 3: Conexão recusada - servidor indisponível
+## 4: Conexão recusada - nome de usuário ou senha incorretos
+## 5: Conexão recusada - não autorizada
 def on_connect(client, userdata, flags, rc):
-    print("Connected to ", client._host, "port: ", client._port)
-    print("Flags: ", flags, "returned code: ", rc)
+    if (rc == 0):
+        print("Conexão OK. Retorno: ", client._host, " Porta: ", client._port)
+    else:
+        print("Conexão Falha. Retorno:  ", client._host, "port: ", client._port,"Flags: ", flags )
+      
 
-# The callback for when a message is published.
 def on_publish(client, userdata, mid):
     print("sipub: msg published (mid={})".format(mid))
 
@@ -27,18 +36,19 @@ client.on_connect = on_connect
 client.on_publish = on_publish
 
 client.username_pw_set(None, password=None)
-client.connect(THE_BROKER, port=1883, keepalive=60)
+client.connect(x_broquer, port=1883, keepalive=60)
 
 client.loop_start()
 
 while True:
 
-    msg_to_be_sent = random.randint(0, 100)
-    client.publish(THE_TOPIC, 
+    msg_to_be_sent = random.randint(0, 100) 
+    client.publish(x_topic, 
                    payload=msg_to_be_sent, 
                    qos=0, 
                    retain=False)
+    print("Envio:", msg_to_be_sent)
 
-    time.sleep(5)
+    time.sleep(10)
 
 client.loop_stop()
