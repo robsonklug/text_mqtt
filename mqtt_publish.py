@@ -3,10 +3,12 @@ import time
 
 import paho.mqtt.client as mqtt
 
+#Usando o servidor test.mosquito.org
+#A classe (da biblioteca PAHO) fornece todas as funções necessárias para se conectar a 
+# um broker MQTT, publicar mensagens, assinar tópicos e receber mensagens.
 x_broquer = "test.mosquitto.org"
-x_topic = "KLUG/Temperatura"
-#x_topic = "PMtest/rndvalue"
-CLIENT_ID = ""
+x_topic = "$KLUG"
+x_clientID = ""
  
 ## realizando a conexão e recebendo o retorno do status da conexão rc.
 ## rc (código de retorno), é usado para verificar se a conexão foi estabelecida que são:
@@ -26,7 +28,7 @@ def on_connect(client, userdata, flags, rc):
 def on_publish(client, userdata, mid):
     print("sipub: msg published (mid={})".format(mid))
 
-client = mqtt.Client(client_id=CLIENT_ID, 
+client = mqtt.Client(client_id=x_clientID, 
                      clean_session=True, 
                      userdata=None, 
                      protocol=mqtt.MQTTv311, 
