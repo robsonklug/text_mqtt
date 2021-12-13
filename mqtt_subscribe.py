@@ -6,9 +6,9 @@ import paho.mqtt.client as mqtt
 #Usando o servidor test.mosquito.org
 #A classe (da biblioteca PAHO) fornece todas as funções necessárias para se conectar a 
 # um broker MQTT, publicar mensagens, assinar tópicos e receber mensagens.
-x_broquer  = "test.mosquitto.org"
+x_broker   = "test.mosquitto.org"
 x_clientID = ""
-x_topic    = "$KLUG"
+x_topic    = "$KLUG/temperatura"
 
 ## realizando a conexão e recebendo o retorno do status da conexão rc.
 ## rc (código de retorno), é usado para verificar se a conexão foi estabelecida que são:

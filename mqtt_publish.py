@@ -6,9 +6,9 @@ import paho.mqtt.client as mqtt
 #Usando o servidor test.mosquito.org
 #A classe (da biblioteca PAHO) fornece todas as funções necessárias para se conectar a 
 # um broker MQTT, publicar mensagens, assinar tópicos e receber mensagens.
-x_broquer  = "test.mosquitto.org"
+x_broker   = "test.mosquitto.org"
 x_clientID = ""
-x_topic    = "$KLUG"
+x_topic    = "$KLUG/temperatura"
 
  
 ## realizando a conexão e recebendo o retorno do status da conexão rc.
@@ -39,7 +39,7 @@ client.on_connect = on_connect
 client.on_publish = on_publish
 
 client.username_pw_set(None, password=None)
-client.connect(x_broquer, port=1883, keepalive=60)
+client.connect(x_broker, port=1883, keepalive=60)
 
 client.loop_start()
 
